@@ -56,5 +56,49 @@ function animate() {
 
   renderer.render(scene, camera);
 }
+camera.position.set(0, 2, 5); // altura 2, afastado 5
+
 animate();
 
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 5);
+scene.add(light);
+
+const ambient = new THREE.AmbientLight(0x404040); // luz suave
+scene.add(ambient);
+
+
+const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x555555 });
+
+
+
+// Cena, câmera e renderizador
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.set(0, 2, 5); // posição inicial
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Luzes
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(5, 10, 5);
+scene.add(light);
+
+const ambient = new THREE.AmbientLight(0x404040);
+scene.add(ambient);
+
+// Chão
+const floorGeometry = new THREE.PlaneGeometry(100, 100);
+const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x555555 });
+const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
+
+// Cubo alvo
+const targetGeometry = new THREE.BoxGeometry(1, 1, 1);
+const targetMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+const target = new THREE.Mesh(targetGeometry, targetMaterial);
+target.position.set(0, 0.5, -10);
+scene.add(target);
